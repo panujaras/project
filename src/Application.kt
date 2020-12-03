@@ -1,15 +1,15 @@
 package com.project
 
+import com.project.route.user
+import com.project.route.userInfo
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.gson.*
-import io.ktor.response.*
-import io.ktor.request.*
 import io.ktor.routing.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-
+// ctrl + alt + L
 fun Application.module() {
 
     install(DefaultHeaders)
@@ -21,22 +21,7 @@ fun Application.module() {
     }
 
     install(Routing) {
-        get(path = "/api/projact/user"){
-            val userInfo =UserInfo(name = "Dru sp",age = 99,degree = null)
-            val user = User(success = true,message = "Fetch user info success",userInfo = userInfo)
-            call.respond(user)
-        }
-
+        user()
+        userInfo()
     }
 }
-data class User(
-    var success:Boolean? = null,
-    var message:String? = null,
-    var userInfo:UserInfo?=null,
-)
-
-data class UserInfo(
-    var name:String? = null,
-    var age:Int? = null,
-    var degree:Any?=null,
-)
