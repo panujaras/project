@@ -14,6 +14,16 @@ fun Route.user() {
     }
 }
 
+// ctrl + shift + P
 fun Route.userInfo(){
+    get(path = "/api/project/userInfo") {
+        // input
+        val name = call.parameters["name"]
+        val age = call.parameters["age"]?.toInt()
 
+        // output
+        val userInfo = UserInfo(name = name, age = age)
+        val response = UserInfoResponse(success = true, message = "Fetch user info success", userInfo = userInfo)
+        call.respond(response)
+    }
 }
